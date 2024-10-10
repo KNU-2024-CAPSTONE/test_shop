@@ -15,19 +15,19 @@ import java.time.LocalDate;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @NotNull
-    String email;
+    private String email;
 
     @NotNull
-    LocalDate birthday;
+    private LocalDate birthday;
 
     @NotNull
-    LocalDate registerDate;
+    private LocalDate registerDate;
 
     @NotNull
-    String gender;
+    private String gender;
 
     public Member(){}
 

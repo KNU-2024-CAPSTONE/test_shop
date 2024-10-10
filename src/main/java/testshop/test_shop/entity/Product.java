@@ -13,16 +13,16 @@ import testshop.test_shop.dto.ProductResponse;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @NotNull
-    String category;
+    private String category;
 
     @NotNull
-    String name;
+    private String name;
 
     @NotNull
-    int price;
+    private int price;
 
     public Product(){}
 

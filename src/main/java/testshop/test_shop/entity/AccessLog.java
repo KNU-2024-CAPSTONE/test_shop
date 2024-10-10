@@ -14,16 +14,16 @@ import java.time.LocalDateTime;
 public class AccessLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @NotNull
-    LocalDateTime accessTime;
+    private LocalDateTime accessTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
-    Member member;
+    private Member member;
 
     public AccessLog() {}
 
@@ -33,6 +33,6 @@ public class AccessLog {
     }
 
     public AccessLogResponse mapToResponse(){
-        return new AccessLogResponse(this.member.email, this.member.gender, this.member.getAge(), this.accessTime);
+        return new AccessLogResponse(this.member.getEmail(), this.member.getGender(), this.member.getAge(), this.accessTime);
     }
 }

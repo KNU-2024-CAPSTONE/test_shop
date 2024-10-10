@@ -10,16 +10,16 @@ import org.hibernate.annotations.OnDeleteAction;
 public class CouponLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @NotNull
     private CouponLog.Status status;
 
     @NotNull
-    String code;
+    private String code;
 
     @NotNull
-    String category;
+    private String category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

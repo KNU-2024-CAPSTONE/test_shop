@@ -14,28 +14,28 @@ import java.time.LocalDateTime;
 public class PurchaseLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @NotNull
-    LocalDateTime purchaseTime;
+    private LocalDateTime purchaseTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
-    Member member;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
-    Product product;
+    private Product product;
 
     @NotNull
-    int quantity;
+    private int quantity;
 
     @NotNull
-    int starCount;
+    private int starCount;
 
     public PurchaseLog() {}
 
@@ -48,14 +48,14 @@ public class PurchaseLog {
     }
 
     public int getTotalPrice(){
-        return this.product.price * this.quantity;
+        return this.product.getPrice() * this.quantity;
     }
 
     public PurchaseInfoResponse mapToResponse(){
-        return new PurchaseInfoResponse(this.member.email,
-                this.member.gender,
+        return new PurchaseInfoResponse(this.member.getEmail(),
+                this.member.getGender(),
                 this.member.getAge(),
-                new PurchaseInfoResponse.Product(this.product.category, this.product.name, this.product.price),
+                new PurchaseInfoResponse.Product(this.product.getCategory(), this.product.getName(), this.product.getPrice()),
                 this.quantity,
                 this.starCount,
                 getTotalPrice(),
