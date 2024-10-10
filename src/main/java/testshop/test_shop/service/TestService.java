@@ -2,10 +2,7 @@ package testshop.test_shop.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import testshop.test_shop.dto.AccessLogResponse;
-import testshop.test_shop.dto.ProductResponse;
-import testshop.test_shop.dto.MemberInfoResponse;
-import testshop.test_shop.dto.PurchaseInfoResponse;
+import testshop.test_shop.dto.*;
 import testshop.test_shop.entity.*;
 import testshop.test_shop.repository.*;
 
@@ -60,8 +57,8 @@ public class TestService {
     }
 
     @Transactional
-    public void registerCoupon(Long memberId, String code) throws Exception {
-        CouponLog couponLog = couponLogRepository.findByMemberIdAndCode(memberId, code).orElseThrow(Exception::new);
+    public void registerCoupon(CouponRequest couponRequest) throws Exception {
+        CouponLog couponLog = couponLogRepository.findByMemberIdAndCode(couponRequest.memberId(), couponRequest.code()).orElseThrow(Exception::new);
         couponLog.changeStatusToRegistered();
     }
 }

@@ -2,10 +2,7 @@ package testshop.test_shop.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import testshop.test_shop.dto.AccessLogResponse;
-import testshop.test_shop.dto.MemberInfoResponse;
-import testshop.test_shop.dto.ProductResponse;
-import testshop.test_shop.dto.PurchaseInfoResponse;
+import testshop.test_shop.dto.*;
 import testshop.test_shop.service.TestService;
 
 import java.util.List;
@@ -40,8 +37,8 @@ public class TestController {
     }
 
     @PutMapping("/check-coupon")
-    public ResponseEntity<String> checkCoupon(@RequestBody Long memberId, @RequestBody String code) throws Exception {
-        testService.registerCoupon(memberId, code);
+    public ResponseEntity<String> checkCoupon(@RequestBody CouponRequest couponRequest) throws Exception {
+        testService.registerCoupon(couponRequest);
         return ResponseEntity.ok("쿠폰이 등록되었습니다.");
     }
 }
