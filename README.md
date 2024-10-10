@@ -38,3 +38,22 @@ PurchaseLog : 구매기록, (id(PK), purchaseTime, member_id(FK), product_id(FK)
 - Product : 무작위 100개
 - AccessLog : 무작위 100개
 - PurchaseLog : 무작위 1000개
+
+API
+1. GET /api/database/member-log : 회원 정보를 가져온다.
+   - response : (String email, String gender, int age, LocalDate registerDate) 값을 리스트 형태로 가져온다.
+   - gender : "male" / "female" 중 하나이다.
+2. GET /api/database/purchase-log : 구매 정보를 가져온다.
+   - (String email, String gender, int age, Product product(String category, String name, int price), int quantity, int starCount, int totalPrice, LocalDateTime purchaseTime) 값을 리스트 형태로 가져온다.
+   - gender : "male" / "female" 중 하나이다.
+   - starCount : 1 ~ 5 사이
+   - totalPrice : price * quantity
+3. GET /api/database/products : 상품 정보를 가져온다.
+   - (String email, String gender, int age, LocalDateTime accessTime) 값을 릿스트 형태로 가져온다.
+   - gender : "male" / "female" 중 하나이다.
+4. GET /api/database/access-log : 접속 기록을 불러온다.
+   - (String category, String name) 값을 리스트 형태로 가져온다.
+5. PUT /api/database/check-coupon : 쿠폰 지급 내역을 확인한 후 등록한다.
+    - requestBody(Long memberId, String code)의 형태로 요청한다.
+    - memberId : Member에서의 id
+    - code : 쿠폰코드, 12자리 A~Z, 0~9 값으로 이루어져있다.
