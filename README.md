@@ -54,6 +54,6 @@ API
 4. GET /api/database/access-log : 접속 기록을 불러온다.
    - (String category, String name) 값을 리스트 형태로 가져온다.
 5. PUT /api/database/check-coupon : 쿠폰 지급 내역을 확인한 후 등록한다.
-    - requestBody(Long memberId, String code)의 형태로 요청한다.
+    - requestBody({Long memberId, String code})의 형태로 요청한다.
     - memberId : Member에서의 id
     - code : 쿠폰코드, 12자리 A~Z, 0~9 값으로 이루어져있다.
