@@ -28,37 +28,47 @@ public class TestService {
     public List<MemberInfoResponse> readAllMember(){
         List<Member> memberList = memberRepository.findAll();
 
-        List<MemberInfoResponse> result = memberList.stream().map(Member::mapToResponse).toList();
-        return result;
+        return memberList.stream().map(Member::mapToResponse).toList();
     }
 
     @Transactional(readOnly = true)
     public List<PurchaseInfoResponse> readAllPurchaseLog(){
-        List<PurchaseLog> purchaseLogList = purchaseLogRepository.findAll();
+        List<PurchaseLog> purchaseLogList = purchaseLogRepository.findAllByOrderByPurchaseTimeDesc();
 
-        List<PurchaseInfoResponse> result = purchaseLogList.stream().map(PurchaseLog::mapToResponse).toList();
-        return result;
+        return purchaseLogList.stream().map(PurchaseLog::mapToResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<PurchaseInfoResponse> readMemberPurchaseLog(Long memberId){
+        List<PurchaseLog> purchaseLogList = purchaseLogRepository.findAllByMemberIdOrderByPurchaseTimeDesc(memberId);
+
+        return purchaseLogList.stream().map(PurchaseLog::mapToResponse).toList();
     }
 
     @Transactional(readOnly = true)
     public List<ProductResponse> readAllProducts(){
         List<Product> productList = productRepository.findAll();
 
-        List<ProductResponse> result = productList.stream().map(Product::mapToRespone).toList();
-        return result;
+        return productList.stream().map(Product::mapToRespone).toList();
     }
 
     @Transactional(readOnly = true)
     public List<AccessLogResponse> readAllAccessLogs(){
         List<AccessLog> accessLogList = accessLogRepository.findAll();
 
-        List<AccessLogResponse> result = accessLogList.stream().map(AccessLog::mapToResponse).toList();
-        return result;
+        return accessLogList.stream().map(AccessLog::mapToResponse).toList();
     }
 
     @Transactional
     public void registerCoupon(CouponRequest couponRequest) throws Exception {
         CouponLog couponLog = couponLogRepository.findByMemberIdAndCode(couponRequest.memberId(), couponRequest.code()).orElseThrow(Exception::new);
         couponLog.changeStatusToRegistered();
+    }
+
+    @Transactional
+    public void addCoupon(AddCouponRequest addCouponRequest) throws Exception {
+        Member member = memberRepository.findById(addCouponRequest.memberId()).orElseThrow(Exception::new);
+        CouponLog couponLog = new CouponLog(CouponLog.Status.NOT_REGISTER, addCouponRequest.code(), addCouponRequest.category(), member);
+        couponLogRepository.save(couponLog);
     }
 }

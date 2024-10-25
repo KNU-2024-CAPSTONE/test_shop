@@ -48,12 +48,21 @@ API
    - gender : "male" / "female" 중 하나이다.
    - starCount : 1 ~ 5 사이
    - totalPrice : price * quantity
-3. GET /api/database/products : 상품 정보를 가져온다.
+3. GET /api/database/purchase-log/{memberId} : 특정 사용자의 구매 정보를 가져온다.
+   - (String email, String gender, int age, Product product(String category, String name, int price), int quantity, int starCount, int totalPrice, LocalDateTime purchaseTime) 값을 리스트 형태로 가져온다.
+   - gender : "male" / "female" 중 하나이다.
+   - starCount : 1 ~ 5 사이
+   - totalPrice : price * quantity
+4. GET /api/database/products : 상품 정보를 가져온다.
    - (String email, String gender, int age, LocalDateTime accessTime) 값을 릿스트 형태로 가져온다.
    - gender : "male" / "female" 중 하나이다.
-4. GET /api/database/access-log : 접속 기록을 불러온다.
+5. GET /api/database/access-log : 접속 기록을 불러온다.
    - (String category, String name) 값을 리스트 형태로 가져온다.
-5. PUT /api/database/check-coupon : 쿠폰 지급 내역을 확인한 후 등록한다.
+6. PUT /api/database/check-coupon : 쿠폰 지급 내역을 확인한 후 등록한다.
     - requestBody({Long memberId, String code})의 형태로 요청한다.
     - memberId : Member에서의 id
     - code : 쿠폰코드, 12자리 A~Z, 0~9 값으로 이루어져있다.
+7. POST /api/database/add-coupon : 쿠폰을 등록한다.
+   - requestBody({Long memberId, String code})의 형태로 요청한다.
+   - memberId : Member에서의 id
+   - code : 쿠폰코드, 12자리 A~Z, 0~9 값으로 이루어져있다.
