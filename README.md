@@ -33,11 +33,16 @@ PurchaseLog : 구매기록, (id(PK), purchaseTime, member_id(FK), product_id(FK)
 - quantity : 구매 수량
 - starCount : 별점
 
+RefundLog : 환불 기록, (id(PK), purchase_log_id(FK))를 가진다.
+- id : 인덱스
+- purchase_log_id : 환불한 구매기록의 인덱스
+
 임의의 데이터 목록
 - Member : 무작위 100개
 - Product : 무작위 100개
 - AccessLog : 무작위 100개
 - PurchaseLog : 무작위 1000개
+- RefundLog : 무작위 200개
 
 API
 1. GET /api/database/member-log : 회원 정보를 가져온다.
@@ -48,11 +53,13 @@ API
    - gender : "male" / "female" 중 하나이다.
    - starCount : 1 ~ 5 사이
    - totalPrice : price * quantity
+   - isRefund : 환불 여부, true/false
 3. GET /api/database/purchase-log/{memberId} : 특정 사용자의 구매 정보를 가져온다.
    - (String email, String gender, int age, Product product(String category, String name, int price), int quantity, int starCount, int totalPrice, LocalDateTime purchaseTime) 값을 리스트 형태로 가져온다.
    - gender : "male" / "female" 중 하나이다.
    - starCount : 1 ~ 5 사이
    - totalPrice : price * quantity
+   - isRefund : 환불 여부, true/false
 4. GET /api/database/products : 상품 정보를 가져온다.
    - (String email, String gender, int age, LocalDateTime accessTime) 값을 릿스트 형태로 가져온다.
    - gender : "male" / "female" 중 하나이다.
