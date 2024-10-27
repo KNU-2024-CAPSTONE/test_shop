@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import testshop.test_shop.dto.PurchaseInfoResponse;
+import testshop.test_shop.dto.PurchaseLogResponse;
 
 import java.time.LocalDateTime;
 
@@ -49,16 +49,5 @@ public class PurchaseLog {
 
     public int getTotalPrice(){
         return this.product.getPrice() * this.quantity;
-    }
-
-    public PurchaseInfoResponse mapToResponse(){
-        return new PurchaseInfoResponse(this.member.getEmail(),
-                this.member.getGender(),
-                this.member.getAge(),
-                new PurchaseInfoResponse.Product(this.product.getCategory(), this.product.getName(), this.product.getPrice()),
-                this.quantity,
-                this.starCount,
-                getTotalPrice(),
-                this.purchaseTime);
     }
 }

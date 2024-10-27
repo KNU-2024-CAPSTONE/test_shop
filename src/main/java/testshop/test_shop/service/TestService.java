@@ -6,6 +6,7 @@ import testshop.test_shop.dto.*;
 import testshop.test_shop.entity.*;
 import testshop.test_shop.repository.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,13 +16,27 @@ public class TestService {
     private final MemberRepository memberRepository;
     private final ProductRepository productRepository;
     private final PurchaseLogRepository purchaseLogRepository;
+    private final RefundLogRepository refundLogRepository;
 
-    public TestService(AccessLogRepository accessLogRepository, CouponLogRepository couponLogRepository, MemberRepository memberRepository, ProductRepository productRepository, PurchaseLogRepository purchaseLogRepository){
+    public TestService(AccessLogRepository accessLogRepository, CouponLogRepository couponLogRepository, MemberRepository memberRepository, ProductRepository productRepository, PurchaseLogRepository purchaseLogRepository, RefundLogRepository refundLogRepository){
         this.accessLogRepository = accessLogRepository;
         this.couponLogRepository = couponLogRepository;
         this.memberRepository = memberRepository;
         this.productRepository = productRepository;
         this.purchaseLogRepository = purchaseLogRepository;
+        this.refundLogRepository = refundLogRepository;
+    }
+
+    public PurchaseLogResponse mapToResponse(PurchaseLog purchaseLog){
+        boolean isRefunded = refundLogRepository.existsByPurchaseLogId(purchaseLog.getId());
+        return new PurchaseLogResponse(purchaseLog.getMember().getEmail(),
+                purchaseLog.getMember().getGender(),
+                purchaseLog.getMember().getAge(),
+                new PurchaseLogResponse.Product(purchaseLog.getProduct().getCategory(), purchaseLog.getProduct().getName(), purchaseLog.getProduct().getPrice()),
+                purchaseLog.getQuantity(),
+                purchaseLog.getStarCount(),
+                purchaseLog.getTotalPrice(),
+                purchaseLog.getPurchaseTime(), isRefunded);
     }
 
     @Transactional(readOnly = true)
@@ -32,17 +47,17 @@ public class TestService {
     }
 
     @Transactional(readOnly = true)
-    public List<PurchaseInfoResponse> readAllPurchaseLog(){
+    public List<PurchaseLogResponse> readAllPurchaseLog(){
         List<PurchaseLog> purchaseLogList = purchaseLogRepository.findAllByOrderByPurchaseTimeDesc();
 
-        return purchaseLogList.stream().map(PurchaseLog::mapToResponse).toList();
+        return purchaseLogList.stream().map(this::mapToResponse).toList();
     }
 
     @Transactional(readOnly = true)
-    public List<PurchaseInfoResponse> readMemberPurchaseLog(Long memberId){
+    public List<PurchaseLogResponse> readMemberPurchaseLog(Long memberId){
         List<PurchaseLog> purchaseLogList = purchaseLogRepository.findAllByMemberIdOrderByPurchaseTimeDesc(memberId);
 
-        return purchaseLogList.stream().map(PurchaseLog::mapToResponse).toList();
+        return purchaseLogList.stream().map(this::mapToResponse).toList();
     }
 
     @Transactional(readOnly = true)

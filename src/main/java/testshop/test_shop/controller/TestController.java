@@ -22,12 +22,12 @@ public class TestController {
     }
 
     @GetMapping("/purchase-log")
-    public ResponseEntity<List<PurchaseInfoResponse>> readPurchaseLog(){
+    public ResponseEntity<List<PurchaseLogResponse>> readPurchaseLog(){
         return ResponseEntity.ok(testService.readAllPurchaseLog());
     }
 
     @GetMapping("/purchase-log/{memberId}")
-    public ResponseEntity<List<PurchaseInfoResponse>> readPurchaseLog(@PathVariable Long memberId){
+    public ResponseEntity<List<PurchaseLogResponse>> readPurchaseLog(@PathVariable Long memberId){
         return ResponseEntity.ok(testService.readMemberPurchaseLog(memberId));
     }
 
