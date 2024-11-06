@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import testshop.test_shop.dto.ProductResponse;
 
+import java.time.LocalDate;
+
 @Getter
 @Entity
 public class Product {
@@ -24,15 +26,15 @@ public class Product {
     @NotNull
     private int price;
 
+    @NotNull
+    LocalDate postDate;
+
     public Product(){}
 
-    public Product(String category, String name, int price){
+    public Product(String category, String name, int price, LocalDate postDate){
         this.category = category;
         this.name = name;
         this.price = price;
-    }
-
-    public ProductResponse mapToRespone(){
-        return new ProductResponse(this.category, this.name);
+        this.postDate = postDate;
     }
 }

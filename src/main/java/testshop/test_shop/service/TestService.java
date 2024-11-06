@@ -62,9 +62,7 @@ public class TestService {
 
     @Transactional(readOnly = true)
     public List<ProductResponse> readAllProducts(){
-        List<Product> productList = productRepository.findAll();
-
-        return productList.stream().map(Product::mapToRespone).toList();
+        return productRepository.findProductStatistics();
     }
 
     @Transactional(readOnly = true)
