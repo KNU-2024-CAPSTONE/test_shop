@@ -61,10 +61,17 @@ API
    - totalPrice : price * quantity
    - isRefund : 환불 여부, true/false
 4. GET /api/database/products : 상품 정보를 가져온다.
-   - (String email, String gender, int age, LocalDateTime accessTime) 값을 릿스트 형태로 가져온다.
-   - gender : "male" / "female" 중 하나이다.
+   - (String productName, Double averageStarCount, Long review, LocalDate postDate) 값을 리스트 형태로 가져온다.
+   -  productName : 상품의 이름이다.
+   -  averageStarCount : 상품의 평균 별점으로, 소수점 두 자리까지만 반환한다.
+   -  review : 리뷰 수이다.
+   -  postDate : 제품 등록일이다. 
 5. GET /api/database/access-log : 접속 기록을 불러온다.
-   - (String category, String name) 값을 리스트 형태로 가져온다.
+   - (String email, String gender, int age, LocalDateTime accessTime) 값을 릿스트 형태로 가져온다.
+   - email : 회원의 이메일 정보이다.
+   - gender : "male" / "female" 중 하나이다.
+   - age : 회원의 나이이다.
+   - accessTime : 회원의 마지막 접속 시간이다.
 6. PUT /api/database/check-coupon : 쿠폰 지급 내역을 확인한 후 등록한다.
     - requestBody({Long memberId, String code})의 형태로 요청한다.
     - memberId : Member에서의 id
@@ -73,4 +80,4 @@ API
    - requestBody({Long memberId, String category, String code})의 형태로 요청한다.
    - memberId : Member에서의 id
    - category : 상품에 적용 가능한 카테고리, 전체 적용 가능할 경우 null이다.
-   - code : 쿠폰코드, 12자리 A~Z, 0~9 값으로 이루어져있다.
+   - code : 쿠폰코드, 12자리 A-Z, 0-9 값으로 이루어져있다.
