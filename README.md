@@ -80,4 +80,4 @@ API
    - requestBody({Long memberId, String category, String code})의 형태로 요청한다.
    - memberId : Member에서의 id
    - category : 상품에 적용 가능한 카테고리, 전체 적용 가능할 경우 null이다.
-   - code : 쿠폰코드, 12자리 A~Z, 0~9 값으로 이루어져있다.
+   - code : 쿠폰코드, 12자리 A-Z, 0-9 값으로 이루어져있다.
