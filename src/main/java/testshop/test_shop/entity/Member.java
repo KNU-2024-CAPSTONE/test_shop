@@ -37,7 +37,7 @@ public class Member {
 
     public MemberInfoResponse mapToResponse(){
         int age = getAge();
-        return new MemberInfoResponse(this.email, this.gender, age, this.registerDate);
+        return new MemberInfoResponse(this.id, this.email, this.gender, age, this.registerDate);
     }
 
     public Member(String email, LocalDate birthday, LocalDate registerDate, String gender){
