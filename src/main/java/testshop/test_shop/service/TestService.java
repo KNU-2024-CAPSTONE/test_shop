@@ -17,14 +17,16 @@ public class TestService {
     private final ProductRepository productRepository;
     private final PurchaseLogRepository purchaseLogRepository;
     private final RefundLogRepository refundLogRepository;
+    private final ProductRecommendRepository productRecommendRepository;
 
-    public TestService(AccessLogRepository accessLogRepository, CouponLogRepository couponLogRepository, MemberRepository memberRepository, ProductRepository productRepository, PurchaseLogRepository purchaseLogRepository, RefundLogRepository refundLogRepository){
+    public TestService(AccessLogRepository accessLogRepository, CouponLogRepository couponLogRepository, MemberRepository memberRepository, ProductRepository productRepository, PurchaseLogRepository purchaseLogRepository, RefundLogRepository refundLogRepository, ProductRecommendRepository productRecommendRepository){
         this.accessLogRepository = accessLogRepository;
         this.couponLogRepository = couponLogRepository;
         this.memberRepository = memberRepository;
         this.productRepository = productRepository;
         this.purchaseLogRepository = purchaseLogRepository;
         this.refundLogRepository = refundLogRepository;
+        this.productRecommendRepository = productRecommendRepository;
     }
 
     public PurchaseLogResponse mapToResponse(PurchaseLog purchaseLog){
@@ -83,5 +85,27 @@ public class TestService {
         Member member = memberRepository.findById(addCouponRequest.memberId()).orElseThrow(Exception::new);
         CouponLog couponLog = new CouponLog(CouponLog.Status.NOT_REGISTER, addCouponRequest.code(), addCouponRequest.category(), member);
         couponLogRepository.save(couponLog);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductRecommendResponse getProductRecommend(){
+        List<ProductRecommend> productRecommendList = productRecommendRepository.findAll();
+        int total = productRecommendList.size();
+        int cartCount = 0;
+        int purchaseCount = 0;
+
+        if (total == 0) {
+            return new ProductRecommendResponse(0, 0);
+        }
+
+        for(ProductRecommend productRecommend:productRecommendList){
+            if (productRecommend.isCart()) cartCount++;
+            if (productRecommend.isPurchase()) purchaseCount++;
+        }
+
+        return new ProductRecommendResponse(
+                (int) ((cartCount * 100.0) / total),
+                (int) ((purchaseCount * 100.0) / total)
+        );
     }
 }

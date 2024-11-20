@@ -52,4 +52,9 @@ public class TestController {
         testService.addCoupon(addCouponRequest);
         return ResponseEntity.ok("쿠폰이 추가되었습니다.");
     }
+
+    @GetMapping("/recommend")
+    public ResponseEntity<ProductRecommendResponse> getRecommend(){
+        return ResponseEntity.ok(testService.getProductRecommend());
+    }
 }
