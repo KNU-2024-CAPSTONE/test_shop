@@ -108,4 +108,13 @@ public class TestService {
                 (int) ((purchaseCount * 100.0) / total)
         );
     }
+
+    @Transactional
+    public void postRecommend(ProductRecommendRequest productRecommendRequest){
+        Member member = memberRepository.findByEmail(productRecommendRequest.email()).get();
+        Product product = productRepository.findByName(productRecommendRequest.name()).get();
+
+        ProductRecommend productRecommend = new ProductRecommend(member, product, false, false);
+        productRecommendRepository.save(productRecommend);
+    }
 }

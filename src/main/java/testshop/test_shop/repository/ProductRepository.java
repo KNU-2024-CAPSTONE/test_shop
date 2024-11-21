@@ -7,6 +7,7 @@ import testshop.test_shop.dto.ProductResponse;
 import testshop.test_shop.entity.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
@@ -16,4 +17,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "LEFT JOIN PurchaseLog pl ON p.id = pl.product.id " +
             "GROUP BY p.id")
     List<ProductResponse> findProductStatistics();
+    Optional<Product> findByName(String name);
 }

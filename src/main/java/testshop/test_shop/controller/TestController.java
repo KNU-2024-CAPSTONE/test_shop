@@ -57,4 +57,10 @@ public class TestController {
     public ResponseEntity<ProductRecommendResponse> getRecommend(){
         return ResponseEntity.ok(testService.getProductRecommend());
     }
+
+    @PostMapping("/recommend")
+    public ResponseEntity<?> postRecommend(@RequestBody ProductRecommendRequest productRecommendRequest){
+        testService.postRecommend(productRecommendRequest);
+        return ResponseEntity.ok("성공");
+    }
 }

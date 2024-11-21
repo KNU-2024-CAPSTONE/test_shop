@@ -91,3 +91,7 @@ API
 8. GET /api/database/recommend : 추천된 상품의 장바구니 담은 비율 및 구매 비율을 조회한다.
    - cartPercent : 장바구니에 담은 비율(정수)
    - purchasePercent : 구매한 비율(정수)
+9. POST /api/database/recommend : 추천된 상품을 저장한다.
+   - requestBody({String email, String name})의 형태로 요청한다.
+   - email : 사용자의 이메일 주소
+   - name : 상품의 이름
