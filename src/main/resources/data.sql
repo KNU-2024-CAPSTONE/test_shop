@@ -1309,7 +1309,7 @@ VALUES ('2024-04-28T02:27:04',5,66,1,2),
 ('2024-05-28T22:12:34',50,20,2,2),
 ('2024-06-27T09:41:53',1,7,1,2);
 
-INSERT INTO coupon_log (status, code, category, member_id) VALUES (0, 'ABCDEF123456', '전자기기', 1);
+INSERT INTO coupon_log (status, code, category, discount, member_id) VALUES (0, 'ABCDEF123456', '전자기기', 15, 1);
 
 INSERT INTO refund_log (purchase_log_id) VALUES
 (4),

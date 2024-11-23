@@ -2,11 +2,12 @@ package testshop.test_shop.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-@NotNull
 @Entity
+@Getter
 public class CouponLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,9 @@ public class CouponLog {
     @NotNull
     private String category;
 
+    @NotNull
+    private int discount;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     @NotNull
@@ -29,10 +33,11 @@ public class CouponLog {
 
     public CouponLog() {}
 
-    public CouponLog(CouponLog.Status status, String code, String category, Member member){
+    public CouponLog(CouponLog.Status status, String code, String category, int discount, Member member){
         this.status = status;
         this.code = code;
         this.category = category;
+        this.discount = discount;
         this.member = member;
     }
 

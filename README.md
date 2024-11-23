@@ -18,11 +18,12 @@ AccessLog : 회원의 마지막 접속시간, (id(PK), member_id(FK), access_tim
 - member_id : Member의 인덱스
 - access_time : 마지막 접속 시간
 
-CouponLog : 쿠폰의 정보, (id(PK), status, code, category, member_id(Fk))를 가진다.
+CouponLog : 쿠폰의 정보, (id(PK), status, code, category, discount, member_id(Fk))를 가진다.
 - id : 인덱스
 - status : 쿠폰의 등록 정보(등록 전, 등록 완료, 사용 완료)
 - code : 쿠폰번호
 - category: 적용되는 카테고리
+- discount : 할인율
 - member_id : Member의 인덱스
 
 PurchaseLog : 구매기록, (id(PK), purchaseTime, member_id(FK), product_id(FK), quantity, starCount)를 가진다.
@@ -84,10 +85,11 @@ API
     - memberId : Member에서의 id
     - code : 쿠폰코드, 12자리 A~Z, 0~9 값으로 이루어져있다.
 7. POST /api/database/add-coupon : 쿠폰을 등록한다.
-   - requestBody({Long memberId, String category, String code})의 형태로 요청한다.
+   - requestBody({Long memberId, String category, String code, int discount})의 형태로 요청한다.
    - memberId : Member에서의 id
    - category : 상품에 적용 가능한 카테고리, 전체 적용 가능할 경우 null이다.
    - code : 쿠폰코드, 12자리 A-Z, 0-9 값으로 이루어져있다.
+   - discount : 할인율, 0 ~ 100 사이의 정수
 8. GET /api/database/recommend : 추천된 상품의 장바구니 담은 비율 및 구매 비율을 조회한다.
    - cartPercent : 장바구니에 담은 비율(정수)
    - purchasePercent : 구매한 비율(정수)

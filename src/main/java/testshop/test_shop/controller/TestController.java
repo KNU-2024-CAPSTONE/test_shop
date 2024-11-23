@@ -47,7 +47,7 @@ public class TestController {
         return ResponseEntity.ok("쿠폰이 등록되었습니다.");
     }
 
-    @PutMapping("/add-coupon")
+    @PostMapping("/add-coupon")
     public ResponseEntity<String> addCoupon(@RequestBody AddCouponRequest addCouponRequest) throws Exception {
         testService.addCoupon(addCouponRequest);
         return ResponseEntity.ok("쿠폰이 추가되었습니다.");

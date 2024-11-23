@@ -83,7 +83,7 @@ public class TestService {
     @Transactional
     public void addCoupon(AddCouponRequest addCouponRequest) throws Exception {
         Member member = memberRepository.findById(addCouponRequest.memberId()).orElseThrow(Exception::new);
-        CouponLog couponLog = new CouponLog(CouponLog.Status.NOT_REGISTER, addCouponRequest.code(), addCouponRequest.category(), member);
+        CouponLog couponLog = new CouponLog(CouponLog.Status.NOT_REGISTER, addCouponRequest.code(), addCouponRequest.category(), addCouponRequest.discount(), member);
         couponLogRepository.save(couponLog);
     }
 
