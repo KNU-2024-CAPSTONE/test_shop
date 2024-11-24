@@ -11,7 +11,6 @@ import java.util.List;
 
 @Service
 public class TestService {
-    private final AccessLogRepository accessLogRepository;
     private final CouponLogRepository couponLogRepository;
     private final MemberRepository memberRepository;
     private final ProductRepository productRepository;
@@ -19,8 +18,7 @@ public class TestService {
     private final RefundLogRepository refundLogRepository;
     private final ProductRecommendRepository productRecommendRepository;
 
-    public TestService(AccessLogRepository accessLogRepository, CouponLogRepository couponLogRepository, MemberRepository memberRepository, ProductRepository productRepository, PurchaseLogRepository purchaseLogRepository, RefundLogRepository refundLogRepository, ProductRecommendRepository productRecommendRepository){
-        this.accessLogRepository = accessLogRepository;
+    public TestService(CouponLogRepository couponLogRepository, MemberRepository memberRepository, ProductRepository productRepository, PurchaseLogRepository purchaseLogRepository, RefundLogRepository refundLogRepository, ProductRecommendRepository productRecommendRepository){
         this.couponLogRepository = couponLogRepository;
         this.memberRepository = memberRepository;
         this.productRepository = productRepository;
@@ -65,19 +63,6 @@ public class TestService {
     @Transactional(readOnly = true)
     public List<ProductResponse> readAllProducts(){
         return productRepository.findProductStatistics();
-    }
-
-    @Transactional(readOnly = true)
-    public List<AccessLogResponse> readAllAccessLogs(){
-        List<AccessLog> accessLogList = accessLogRepository.findAll();
-
-        return accessLogList.stream().map(AccessLog::mapToResponse).toList();
-    }
-
-    @Transactional
-    public void registerCoupon(CouponRequest couponRequest) throws Exception {
-        CouponLog couponLog = couponLogRepository.findByMemberIdAndCode(couponRequest.memberId(), couponRequest.code()).orElseThrow(Exception::new);
-        couponLog.changeStatusToRegistered();
     }
 
     @Transactional

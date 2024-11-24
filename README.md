@@ -13,11 +13,6 @@ Product : 상품정보, (id(PK), category, name, price)를 가진다.
 - name : 상품명
 - price : 상품 가격
 
-AccessLog : 회원의 마지막 접속시간, (id(PK), member_id(FK), access_time)을 가진다.
-- id : 인덱스
-- member_id : Member의 인덱스
-- access_time : 마지막 접속 시간
-
 CouponLog : 쿠폰의 정보, (id(PK), status, code, category, discount, member_id(Fk))를 가진다.
 - id : 인덱스
 - status : 쿠폰의 등록 정보(등록 전, 등록 완료, 사용 완료)
@@ -73,27 +68,17 @@ API
    -  productName : 상품의 이름이다.
    -  averageStarCount : 상품의 평균 별점으로, 소수점 두 자리까지만 반환한다.
    -  review : 리뷰 수이다.
-   -  postDate : 제품 등록일이다. 
-5. GET /api/database/access-log : 접속 기록을 불러온다.
-   - (String email, String gender, int age, LocalDateTime accessTime) 값을 릿스트 형태로 가져온다.
-   - email : 회원의 이메일 정보이다.
-   - gender : "male" / "female" 중 하나이다.
-   - age : 회원의 나이이다.
-   - accessTime : 회원의 마지막 접속 시간이다.
-6. PUT /api/database/check-coupon : 쿠폰 지급 내역을 확인한 후 등록한다.
-    - requestBody({Long memberId, String code})의 형태로 요청한다.
-    - memberId : Member에서의 id
-    - code : 쿠폰코드, 12자리 A~Z, 0~9 값으로 이루어져있다.
-7. POST /api/database/add-coupon : 쿠폰을 등록한다.
+   -  postDate : 제품 등록일이다.
+5. POST /api/database/add-coupon : 쿠폰을 등록한다.
    - requestBody({Long memberId, String category, String code, int discount})의 형태로 요청한다.
    - memberId : Member에서의 id
    - category : 상품에 적용 가능한 카테고리, 전체 적용 가능할 경우 null이다.
    - code : 쿠폰코드, 12자리 A-Z, 0-9 값으로 이루어져있다.
    - discount : 할인율, 0 ~ 100 사이의 정수
-8. GET /api/database/recommend : 추천된 상품의 장바구니 담은 비율 및 구매 비율을 조회한다.
+6. GET /api/database/recommend : 추천된 상품의 장바구니 담은 비율 및 구매 비율을 조회한다.
    - cartPercent : 장바구니에 담은 비율(정수)
    - purchasePercent : 구매한 비율(정수)
-9. POST /api/database/recommend : 추천된 상품을 저장한다.
+7. POST /api/database/recommend : 추천된 상품을 저장한다.
    - requestBody({String email, String name})의 형태로 요청한다.
    - email : 사용자의 이메일 주소
    - name : 상품의 이름

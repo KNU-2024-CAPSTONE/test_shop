@@ -36,17 +36,6 @@ public class TestController {
         return ResponseEntity.ok(testService.readAllProducts());
     }
 
-    @GetMapping("/access-log")
-    public ResponseEntity<List<AccessLogResponse>> readAccessLogs(){
-        return ResponseEntity.ok(testService.readAllAccessLogs());
-    }
-
-    @PutMapping("/check-coupon")
-    public ResponseEntity<String> checkCoupon(@RequestBody CouponRequest couponRequest) throws Exception {
-        testService.registerCoupon(couponRequest);
-        return ResponseEntity.ok("쿠폰이 등록되었습니다.");
-    }
-
     @PostMapping("/add-coupon")
     public ResponseEntity<String> addCoupon(@RequestBody AddCouponRequest addCouponRequest) throws Exception {
         testService.addCoupon(addCouponRequest);
