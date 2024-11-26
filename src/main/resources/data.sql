@@ -1511,3 +1511,5 @@ INSERT INTO product_recommend (member_id, product_id, is_cart, is_purchase) VALU
 (61, 42, false, true),
 (72, 55, true, false),
 (83, 67, false, false);
+
+UPDATE product_recommend SET recommend_date = CURRENT_DATE;

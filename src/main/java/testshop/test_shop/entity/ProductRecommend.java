@@ -5,13 +5,21 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 public class ProductRecommend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @CreatedDate
+    private LocalDate recommendDate;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
