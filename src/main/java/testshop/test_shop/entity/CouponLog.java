@@ -19,7 +19,6 @@ public class CouponLog {
     @NotNull
     private String code;
 
-    @NotNull
     private String category;
 
     @NotNull
